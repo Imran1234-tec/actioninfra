@@ -1,0 +1,39 @@
+name: Basic infra pipeline
+
+on: push
+
+
+jobs:
+    initial_job:
+        runs-on: self-hosted
+        steps: 
+            - name: code checkout
+              uses: actions/checkout@v4
+
+            - name: terraform version setup
+              uses: hashicorp/setup-terraform@v2
+              with: 
+                terraform_version: 1.7
+
+            - name: terraform initialization
+              id: init
+              run: terraform init
+
+            - name: terraform validation
+              id: validate
+              run: terraform validate
+
+            - name: terraform fmt
+              id: fmt
+              run: terraform fmt
+
+            - name: terraform plan
+              id: plan
+              run: terraform plan
+             
+            - name: terraform apply
+              id: apply
+              run: terraform apply
+              
+            
+
